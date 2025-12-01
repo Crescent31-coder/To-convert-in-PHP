@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay Resident Registration</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind Configuration for custom colors and font
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-green': '#00796b', // Teal 700
+                        'dark-green': '#004d40',   // Teal 900
+                        'accent-yellow': '#ffb300', // Amber 600
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Base styles */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            /* Use a subtle gradient background for aesthetic appeal */
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            min-height: 100vh;
+        }
+
+        /* Focus state for inputs */
+        .form-input:focus { 
+            border-color: var(--primary-green); 
+            outline: none; 
+            box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.3);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Header Section -->
+    <header class="bg-dark-green text-white p-6 shadow-xl sticky top-0 z-10">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl font-extrabold tracking-tight">Barangay Resident Registry</h1>
+            <p class="text-lg font-light mt-1 opacity-90">Secure Account Creation</p>
+        </div>
+    </header>
+
+    <!-- Main Content / Form Container -->
+    <main class="flex-grow container mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="max-w-xl w-full mx-auto bg-white p-6 sm:p-8 lg:p-10 rounded-2xl shadow-2xl border border-gray-100">
+            
+            <h2 class="text-2xl font-bold mb-6 text-dark-green flex items-center">
+                <svg class="w-6 h-6 mr-3 text-accent-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 6v1a2 2 0 01-2 2H5a2 2 0 01-2-2v-1h18z"></path></svg>
+                Create Your Digital Profile
+            </h2>
+            
+            <!-- The form action is set to a placeholder file -->
+            <form action="thankyou.html" method="GET"> 
+                
+                <!-- Name Fields - Stack vertically on mobile, side-by-side on tablet/desktop -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">Last Name:</label>
+                        <input type="text" id="last_name" name="last_name" required 
+                               class="form-input w-full p-3 border border-gray-300 rounded-xl transition duration-300 placeholder-gray-400" 
+                               placeholder="Dela Cruz">
+                    </div>
+                    <div>
+                        <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">First Name:</label>
+                        <input type="text" id="first_name" name="first_name" required 
+                               class="form-input w-full p-3 border border-gray-300 rounded-xl transition duration-300 placeholder-gray-400" 
+                               placeholder="Juan">
+                    </div>
+                </div>
+
+                <!-- Address Fields -->
+                <div class="mb-4">
+                    <label for="address_line" class="block text-sm font-medium text-gray-700 mb-1">Street / House No.:</label>
+                    <input type="text" id="address_line" name="address_line" required 
+                           class="form-input w-full p-3 border border-gray-300 rounded-xl transition duration-300 placeholder-gray-400" 
+                           placeholder="e.g., 123 Real St.">
+                </div>
+
+                <div class="mb-4">
+                    <label for="purok" class="block text-sm font-medium text-gray-700 mb-1">Purok/Zone:</label>
+                    <input type="text" id="purok" name="purok" required 
+                           class="form-input w-full p-3 border border-gray-300 rounded-xl transition duration-300 placeholder-gray-400" 
+                           placeholder="e.g., Purok 5 or Zone 3">
+                </div>
+
+                <!-- Contact Fields - Stack vertically on mobile, side-by-side on tablet/desktop -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address (Optional):</label>
+                        <input type="email" id="email" name="email" 
+                               class="form-input w-full p-3 border border-gray-300 rounded-xl transition duration-300 placeholder-gray-400" 
+                               placeholder="your@email.com">
+                    </div>
+                    <div>
+                        <label for="mobile" class="block text-sm font-medium text-gray-700 mb-1">Mobile Number (Required):</label>
+                        <input type="tel" id="mobile" name="mobile" required 
+                               class="form-input w-full p-3 border border-gray-300 rounded-xl transition duration-300 placeholder-gray-400" 
+                               placeholder="09XX-XXX-XXXX">
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" 
+                        class="w-full bg-primary-green hover:bg-dark-green text-white p-4 font-bold rounded-xl text-lg 
+                               shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-[1.01] focus:outline-none focus:ring-4 focus:ring-primary-green focus:ring-opacity-50">
+                    Register Resident Account
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white mt-8 p-4">
+        <div class="container mx-auto text-center text-sm">
+            <p>&copy; 2024 Barangay Burabod Digital Services. All Rights Reserved.</p>
+            <a href="index.html" class="text-gray-400 hover:text-white transition mt-1 block">← Back to Home Page</a>
+        </div>
+    </footer>
+</body>
+</html>
+

@@ -1,0 +1,517 @@
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Barangay Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Base Styling & Variables */
+        :root {
+            --bg-primary: #f4f4f9;
+            --bg-secondary: #ffffff;
+            --text-color: #333;
+            --header-bg: #004d40;
+            --accent-color: #00796b;
+            --shadow-light: rgba(0, 0, 0, 0.05);
+            --shadow-medium: rgba(0, 0, 0, 0.1);
+        }
+                 
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-primary);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Custom Component Styling */
+        .site-header {
+            background-color: var(--header-bg);
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 6px var(--shadow-medium);
+            position: relative; /* Added for absolute positioning of the burger button */
+        }
+
+        /* --- NEW RULE FOR BURGER MENU COLOR --- */
+        #burger-menu-btn svg {
+           
+            stroke: white; 
+            
+        }
+        
+        .header-branding {
+            display: flex;
+            align-items: center;
+            background-color: #004d40;
+            height: 10vh;
+            color: white;
+        }
+              
+
+        .header-image {
+            width: 50px; /* Reduced size for header */
+            height: 50px;
+            object-fit: cover;
+            margin-right: 15px;
+            margin-left: 20px;
+            border-radius: 50%;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Adjust sidebar for responsive menu */
+        .sidebar {
+            min-width: 250px;
+            padding: 20px;
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            box-shadow: 0 0 10px var(--shadow-light);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            z-index: 10;
+        }
+               
+        
+        /* Mobile menu overlay/positioning */
+        @media (max-width: 768px) {
+        
+            .sidebar {
+                position: fixed; /* Fixed position for overlay */
+                top: 0;
+                left: 0;
+                width: 70%; /* Takes up most of the screen width */
+                max-width: 250px;
+                height: 100%;
+                margin: 0px;
+                padding-top: 0px; /* Space for the header */
+                transform: translateX(-100%); /* Start off-screen */
+                transition: transform 0.3s ease-in-out;
+                box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+                border-radius: 0;
+            }
+            .sidebar.is-open {
+                transform: translateX(0); /* Slide in */
+            }
+            .container {
+                padding: 0; /* Remove padding to avoid horizontal scroll on mobile */
+            }
+            
+            .logo {
+              width: 1000px;
+              height: 25%;
+              margin: 10px 0px;
+              padding: 10px 20px;
+              object-fit: ;
+            }
+            
+            footer {
+          padding: 10%;
+          margin-top: 100%;
+        }
+           
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px 15px;
+            margin-bottom: 5px;
+            text-decoration: none;
+            color: var(--text-color);
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: var(--bg-primary);
+        }
+
+        .sidebar a.active {
+            background-color: var(--accent-color);
+            color: white;
+            font-weight: bold;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding-left: 40px;
+        }
+
+        .page-section {
+            background-color: var(--bg-secondary);
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px var(--shadow-light);
+        }
+
+        .page-section h2 {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--bg-primary);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .announcement-box {
+            border: 1px solid var(--bg-primary);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 4px;
+            background-color: var(--bg-secondary);
+            box-shadow: 0 1px 3px var(--shadow-light);
+        }
+
+        .announcement-box.emergency {
+            border-left: 5px solid #ef4444; /* Red for emergency */
+            background-color: var(--bg-primary);
+            color: #ef4444;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 10px;
+            }
+            /* Sidebar changes moved to .sidebar definition above */
+            .main-content {
+                padding-left: 0;
+                padding-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+   <div class="header-content">
+            <div class="header-branding">
+                <img src="logo.jpeg" alt="Barangay Header Image" class="header-image">
+                <h1 class="text-xl font-bold">Barangay Burabod Portal</h1>
+            </div>
+        
+        <button id="burger-menu-btn" class="md:hidden absolute top-0 right-0 p-4" aria-label="Toggle navigation menu">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+    </header>
+
+    <div class="container">
+        <nav class="sidebar hidden md:block" id="sidebar-nav">
+          
+          <img src="logo.jpeg" alt="Barangay Header Image" class="logo">
+          
+          <hr class="my-4">
+          
+            <a href="#home" class="nav-link active">🏠 Home</a>
+            
+            <hr class="my-1">
+            <a href="#officials" class="nav-link">🧑‍💼 Officials</a>
+            
+            <hr class="my-1">
+            <a href="#services" class="nav-link">📄 Services</a>
+            
+            <hr class="my-1">
+            <a href="#clearance-tracker" class="nav-link">🔎 Clearance Status</a>
+            
+            <hr class="my-1">            
+            <a href="#transparency" class="nav-link">🏛️ Transparency</a>
+            
+            <hr class="my-1">
+            <a href="#portfolio" class="nav-link">🖼️ Portfolio/Gallery</a>
+            
+            <hr class="my-1">
+            <a href="#about" class="nav-link">💡 About Us</a>
+            <hr class="my-1">
+            <a href="#contact" class="nav-link">📞 Contact Us</a>
+            
+            <hr class="my-1">
+            <a href="registration.html" class="nav-link text-white font-bold text-center bg-yellow-600 hover:bg-blue-700 transition">📝 Resident Registration</a>
+        </nav>
+
+        <main class="main-content">
+            
+            <section id="home" class="page-section">
+                <h2>📣 Latest News & Advisories</h2>
+                
+                <div class="mb-5">
+                    <input type="text" id="announcement-filter" placeholder="Search announcements (e.g., 'curfew', 'water', 'vaccine')..." class="w-full p-3 border rounded-lg shadow-sm focus:ring-accent-color focus:border-accent-color transition duration-150 bg-gray-100 dark:bg-gray-700 dark:text-white">
+                </div>
+
+                <div id="announcements-list">
+                    <div class="announcement-box" data-keywords="advisory, water, interruption, schedule">
+                        <h3 class="font-semibold text-lg mb-1">Water Interruption Schedule Advisory</h3>
+                        <p class="text-sm italic mb-2">Posted: 2025-11-28</p>
+                        <p>Due to emergency line repairs, water service will be temporarily interrupted from 9:00 AM to 4:00 PM tomorrow in Purok 3 and 4. Please store sufficient water. We apologize for the inconvenience.</p>
+                    </div>
+
+                    <div class="announcement-box emergency" data-keywords="emergency, disaster, hotline, flooding">
+                        <h3 class="font-bold text-lg mb-1">🚨 Emergency: Flooding Alert for Low-Lying Areas</h3>
+                        <p class="text-sm italic mb-2">Posted: 2025-11-29</p>
+                        <p>Residents in Zone 1 are advised to prepare for voluntary evacuation due to heavy rainfall and potential flooding. Contact the Barangay Hotline immediately: (046) 123-4567.</p>
+                    </div>
+
+                    <div class="announcement-box" data-keywords="vaccination, health, schedule, clinic">
+                        <h3 class="font-semibold text-lg mb-1">Community Health & Vaccination Drive</h3>
+                        <p class="text-sm italic mb-2">Posted: 2025-11-25</p>
+                        <p>A free vaccination drive for flu shots and booster doses will be held at the Barangay Hall covered court this Saturday, 8:00 AM - 12:00 PM. Please bring a valid ID.</p>
+                    </div>
+                </div>
+
+                <div class="mt-4 announcement-box emergency">
+                    <h3 class="font-bold text-lg mb-1">📞 Emergency Contact Numbers</h3>
+                    <ul class="list-disc pl-5">
+                        <li>Barangay Hotline: (046) 123-4567</li>
+                        <li>Police: 117</li>
+                        <li>Fire/Medical: 911</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="officials" class="page-section hidden">
+                <h2>🧑‍💼 Barangay Council Officials</h2>
+                <table class="w-full text-left border-collapse mt-4">
+                    <thead>
+                        <tr class="bg-gray-100 dark:bg-gray-700"><th>Position</th><th>Name</th><th>Contact (Cell/Email)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Punong Barangay (Captain)</td><td>Hon. Maria S. Dela Cruz</td><td>0917-123-4567</td></tr>
+                        <tr><td>Barangay Kagawad (Councilor)</td><td>Hon. Ricardo Gomez</td><td>0917-222-3333</td></tr>
+                        <tr><td>Barangay Secretary</td><td>Ms. Clara Reyes</td><td>clarareyes@brgy.gov.ph</td></tr>
+                    </tbody>
+                </table>
+            </section>
+            
+            <section id="services" class="page-section hidden">
+                <h2>📄 Barangay Services</h2>
+                
+                <h3 class="font-semibold text-xl mt-4">How to Get a Barangay Clearance</h3>
+                
+                <div class="my-4 p-4 border rounded-lg bg-green-50 dark:bg-green-800 border-green-300">
+                    <p class="font-bold text-lg mb-2">Get Your Clearance Online Now!</p>
+                    <p class="mb-3">Skip the line! Apply, pay, and track your Barangay Clearance application entirely online.</p>
+                    <a href="clearance_application.html" 
+                       class="inline-block px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition">
+                        Start Online Application &rarr;
+                    </a>
+                </div>
+                
+                <h3 class="font-semibold text-xl mt-6">Indigency Certificate</h3>
+                <p>Required for: Scholarship applications, hospital assistance, etc.</p>
+                <p class="italic text-sm">Requirements: Application letter, proof of no stable income, and valid ID.</p>
+            </section>
+            
+            
+                        <section id="clearance-tracker" class="page-section hidden">
+                <h2>🔎 Online Clearance Status Tracker</h2>
+                <p>Enter your Tracking ID (e.g., BRGY-2025-58321) to check the progress of your application.</p>
+                
+                <div class="mt-4 mb-6 flex">
+                    <input type="text" id="tracking-input" placeholder="Enter Tracking ID..." 
+                           class="flex-grow p-3 border border-gray-300 rounded-l-lg shadow-sm focus:ring-accent-color focus:border-accent-color dark:bg-gray-700 dark:text-white">
+                    <button id="track-btn" class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-r-lg hover:bg-blue-700 transition">Track</button>
+                </div>
+                
+                <div id="status-result" class="p-4 rounded-lg border-l-4 border-gray-400 bg-gray-50 dark:bg-gray-700 dark:border-gray-500 hidden">
+                    <p class="font-bold text-lg mb-1" id="status-title">Application Status:</p>
+                    <p id="status-message" class="text-gray-700 dark:text-gray-300">...</p>
+                </div>
+            </section>
+            
+            
+            <section id="transparency" class="page-section hidden">
+                <h2>🏛️ Transparency and Governance</h2>
+                <p>View our official documents and financial reports below:</p>
+                <div class="my-4 p-4 border rounded-lg bg-gray-50 dark:bg-gray-800">
+                    <div class="h-96 w-full flex items-center justify-center text-center text-gray-500 dark:text-gray-400 border-dashed border-2 border-gray-300 rounded-lg">
+                        Embedded Google Docs Placeholder: Budget Report FY 2025
+                    </div>
+                    <p class="text-center text-xs mt-2 text-gray-600 dark:text-gray-300">Barangay Annual Budget Report FY 2025</p>
+                </div>
+            </section>
+
+            <section id="portfolio" class="page-section hidden">
+                <h2>🖼️ Community Photo Gallery</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+                    <img class="w-full h-40 object-cover rounded-lg shadow-md" src="mt.jpg" alt="Community Event 1">
+                    <img class="w-full h-40 object-cover rounded-lg shadow-md" src="bura.jpg" alt="Infrastructure Project">
+                    <img class="w-full h-40 object-cover rounded-lg shadow-md" src="river.jpg" alt="Burabod river">
+                </div>
+            </section>
+            
+            <section id="about" class="page-section hidden">
+                <h2>💡 About Our Barangay</h2>
+                <p>Established in 1872, our barangay is committed to providing a safe, clean, and progressive community for all its residents.
+                <h3 class="font-semibold text-xl mt-4">Mission</h3>
+                <p>To uphold transparency and provide efficient public service.</p>
+                <h3 class="font-semibold text-xl mt-4">Vision</h3>
+                <p>A thriving, self-reliant community where everyone has access to basic services and opportunities.</p>
+            </section>
+
+             <section id="contact" class="page-section hidden">
+                <h2>📞 Contact Us</h2>
+                <p>For non-emergency concerns, you may visit the Barangay Hall during office hours or send us an email.</p>
+                <ul class="list-disc pl-5 ml-4 space-y-1 mt-3">
+                    <li>Address: Real St., Burabod Lagonoy, Camarines Sur, Philippines</li>
+                    <li>Office Hours: Monday - Friday, 8:00 AM to 5:00 PM</li>
+                    <li>Email: official@brgyburabod.gov.ph</li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+   
+
+    <footer class="text-center py-4 bg-gray-800 text-white bottom-0 w-full text-sm">
+    
+
+        <p>&copy; 2025 Barangay Burabod Digital Services. All Rights Reserved.</p>
+    </footer>
+   
+   
+    <script>
+      
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- New: Burger Menu and Sidebar Toggle ---
+            const burgerBtn = document.getElementById('burger-menu-btn');
+            const sidebarNav = document.getElementById('sidebar-nav');
+            
+            function toggleSidebar() {
+                sidebarNav.classList.toggle('hidden'); // For Tailwind utility class
+                sidebarNav.classList.toggle('is-open'); // For custom CSS transition
+            }
+
+            burgerBtn.addEventListener('click', toggleSidebar);
+
+            // Close sidebar when a nav link is clicked (on mobile)
+            document.querySelectorAll('.sidebar a.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        toggleSidebar();
+                    }
+                });
+            });
+
+            // --- 1. Basic Single-Page Navigation (Show/Hide Sections) ---
+            const navLinks = document.querySelectorAll('.sidebar a.nav-link');
+            const sections = document.querySelectorAll('.page-section');
+            const defaultSectionId = '#home';
+
+            function navigate(targetHash) {
+                // Ensure the hash is a section ID starting with #
+                if (!targetHash.startsWith('#')) return;
+
+                sections.forEach(section => {
+                    section.classList.add('hidden');
+                });
+
+                const targetSection = document.querySelector(targetHash);
+                if (targetSection) {
+                    targetSection.classList.remove('hidden');
+                }
+
+                navLinks.forEach(nav => {
+                    nav.classList.remove('active');
+                    if (nav.getAttribute('href') === targetHash) {
+                        nav.classList.add('active');
+                    }
+                });
+
+                // Update URL hash without page reload
+                history.pushState(null, null, targetHash);
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Prevent default only for internal hash links, not external links like registration.html
+                    if (this.hash && this.hash.startsWith('#')) {
+                        e.preventDefault();
+                        navigate(this.hash);
+                    }
+                });
+            });
+
+            // Handle initial load based on URL hash or default to home
+            const initialHash = window.location.hash || defaultSectionId;
+            navigate(initialHash);
+
+
+            // --- 3. Announcement Search Filter (Necessary for Quick Information Retrieval) ---
+            const filterInput = document.getElementById('announcement-filter');
+            const announcementsList = document.getElementById('announcements-list');
+            const announcementBoxes = announcementsList.getElementsByClassName('announcement-box');
+
+            filterInput.addEventListener('keyup', function() {
+                const filterValue = filterInput.value.toLowerCase().trim();
+
+                for (let i = 0; i < announcementBoxes.length; i++) {
+                    const box = announcementBoxes[i];
+                    // Search in visible text content and custom data-keywords attribute
+                    const textContent = box.textContent.toLowerCase();
+                    const keywords = box.getAttribute('data-keywords').toLowerCase();
+                    
+                    if (textContent.includes(filterValue) || keywords.includes(filterValue)) {
+                        box.style.display = 'block';
+                    } else {
+           box.style.display = 'none';
+                    }
+                }
+            });
+            
+                        // --- 4. Clearance Status Tracker Logic (P-4 Simulation) ---
+            const trackingInput = document.getElementById('tracking-input');
+            const trackBtn = document.getElementById('track-btn');
+            const statusResult = document.getElementById('status-result');
+            const statusTitle = document.getElementById('status-title');
+            const statusMessage = document.getElementById('status-message');
+
+            // Simulated Backend Data (A-3/C-1)
+            const simulatedStatuses = {
+                // Key: Tracking ID
+                "BRGY-2025-58321": { 
+                    status: "FOR_VERIFICATION", 
+                    message: "Your documents are currently under review by the Barangay Secretary. Please wait 1-2 business days.",
+                    color: "border-yellow-500 bg-yellow-100 text-yellow-800"
+                },
+                "BRGY-2025-58322": { 
+                    status: "APPROVED_PENDING_PAYMENT", 
+                    message: "Your application is approved! Please proceed to the Barangay Hall to pay the fee (₱50.00) and claim your official clearance.",
+                    color: "border-green-500 bg-green-100 text-green-800"
+                },
+                "BRGY-2025-58323": { 
+                    status: "DENIED", 
+                    message: "Application denied: Proof of residency is incomplete. Please re-apply with a current utility bill.",
+                    color: "border-red-500 bg-red-100 text-red-800"
+                }
+            };
+
+            trackBtn.addEventListener('click', function() {
+                const trackingId = trackingInput.value.trim().toUpperCase();
+                const result = simulatedStatuses[trackingId];
+
+                statusResult.classList.remove('hidden');
+                
+                if (result) {
+                    statusTitle.textContent = `Application Status: ${result.status.replace(/_/g, ' ')}`;
+                    statusMessage.innerHTML = `<p>${result.message}</p>`; // Use innerHTML for dynamic message formatting
+                    
+                    // Update colors based on status
+                    statusResult.className = `p-4 rounded-lg border-l-4 ${result.color} transition`;
+                } else {
+                    statusTitle.textContent = "Status: Not Found";
+                    statusMessage.textContent = "The Tracking ID you entered was not found in our records. Please check the ID and try again.";
+                    statusResult.className = `p-4 rounded-lg border-l-4 border-gray-400 bg-gray-50 dark:bg-gray-700 dark:border-gray-500 transition`;
+                }
+            });
+            
+        });
+    </script>
+</body>
+</html>
