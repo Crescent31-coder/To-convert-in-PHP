@@ -1,4 +1,4 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -29,33 +29,36 @@
         .site-header {
             background-color: var(--header-bg);
             color: white;
-            text-align: center;
             box-shadow: 0 4px 6px var(--shadow-medium);
-            position: relative; /* Added for absolute positioning of the burger button */
+            position: relative; 
+            
+            /* FIX 1: Use flex to properly distribute content */
+            display: flex;
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 0 20px; 
+            height: 10vh; 
         }
 
-        /* --- NEW RULE FOR BURGER MENU COLOR --- */
         #burger-menu-btn svg {
-           
             stroke: white; 
-            
         }
         
         .header-branding {
             display: flex;
             align-items: center;
-            background-color: #004d40;
-            height: 10vh;
+            background-color: transparent; /* Inherit from site-header */
             color: white;
+            /* REMOVED: height: 10vh; */
         }
               
 
         .header-image {
-            width: 50px; /* Reduced size for header */
+            width: 50px; 
             height: 50px;
             object-fit: cover;
             margin-right: 15px;
-            margin-left: 20px;
+            margin-left: 0; /* Align left */
             border-radius: 50%;
         }
 
@@ -64,6 +67,16 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+        }
+        
+        .logo {
+            /* FIX 3: Correct size for the logo inside the desktop sidebar */
+            width: 100%;
+            max-width: 200px; 
+            height: auto;
+            object-fit: contain;
+            display: block; 
+            margin: 10px auto; 
         }
 
         /* Adjust sidebar for responsive menu */
@@ -82,41 +95,43 @@
         
         /* Mobile menu overlay/positioning */
         @media (max-width: 768px) {
+            
+            /* FIX 1: Ensure the burger button is placed relative to the new flex layout */
+            #burger-menu-btn {
+                position: static; 
+                order: 2; 
+            }
         
             .sidebar {
-                position: fixed; /* Fixed position for overlay */
+                position: fixed; 
                 top: 0;
                 left: 0;
-                width: 70%; /* Takes up most of the screen width */
+                width: 70%; 
                 max-width: 250px;
                 height: 100%;
                 margin: 0px;
-                padding-top: 0px; /* Space for the header */
-                transform: translateX(-100%); /* Start off-screen */
+                /* FIX 2: Space for the header */
+                padding-top: 10vh; 
+                transform: translateX(-100%); 
                 transition: transform 0.3s ease-in-out;
                 box-shadow: 2px 0 5px rgba(0,0,0,0.5);
                 border-radius: 0;
+                /* FIX 2: Ensure background is white for contrast */
+                background-color: var(--bg-secondary);
             }
             .sidebar.is-open {
-                transform: translateX(0); /* Slide in */
+                transform: translateX(0); 
             }
             .container {
-                padding: 0; /* Remove padding to avoid horizontal scroll on mobile */
+                padding: 0; 
             }
             
+            /* FIX 2: Hide the large logo on mobile view */
             .logo {
-              width: 1000px;
-              height: 25%;
-              margin: 10px 0px;
-              padding: 10px 20px;
-              object-fit: ;
+              display: none;
             }
             
-            footer {
-          padding: 10%;
-          margin-top: 100%;
-        }
-           
+            /* FIX 4: Removed aggressive footer styling */
         }
 
         .sidebar a {
@@ -142,6 +157,8 @@
         .main-content {
             flex-grow: 1;
             padding-left: 40px;
+            /* FIX 3: Add top margin for spacing on desktop */
+            margin-top: 10px; 
         }
 
         .page-section {
@@ -170,7 +187,7 @@
         }
 
         .announcement-box.emergency {
-            border-left: 5px solid #ef4444; /* Red for emergency */
+            border-left: 5px solid #ef4444; 
             background-color: var(--bg-primary);
             color: #ef4444;
         }
@@ -181,29 +198,31 @@
                 flex-direction: column;
                 padding: 10px;
             }
-            /* Sidebar changes moved to .sidebar definition above */
             .main-content {
                 padding-left: 0;
                 padding-top: 10px;
+                margin-top: 0; /* Remove top margin on mobile */
             }
         }
     </style>
 </head>
 <body class="antialiased">
+    
+    <div id="menu-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden md:hidden"></div>
 
-   <div class="header-content">
-            <div class="header-branding">
-                <img src="logo.jpeg" alt="Barangay Header Image" class="header-image">
-                <h1 class="text-xl font-bold">Barangay Burabod Portal</h1>
-            </div>
+    <header class="site-header">
+        <div class="header-branding">
+            <img src="logo.jpeg" alt="Barangay Header Image" class="header-image">
+            <h1 class="text-xl font-bold">Barangay Burabod Portal</h1>
+        </div>
         
-        <button id="burger-menu-btn" class="md:hidden absolute top-0 right-0 p-4" aria-label="Toggle navigation menu">
-                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
+        <button id="burger-menu-btn" class="md:hidden p-4" aria-label="Toggle navigation menu">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
     </header>
 
     <div class="container">
-        <nav class="sidebar hidden md:block" id="sidebar-nav">
+        <nav class="sidebar" id="sidebar-nav">
           
           <img src="logo.jpeg" alt="Barangay Header Image" class="logo">
           
@@ -369,12 +388,11 @@
    
 
     <footer class="text-center py-4 bg-gray-800 text-white bottom-0 w-full text-sm">
-    
-
         <p>&copy; 2025 Barangay Burabod Digital Services. All Rights Reserved.</p>
     </footer>
    
-   
+
+
     <script>
       
         document.addEventListener('DOMContentLoaded', () => {
@@ -382,19 +400,34 @@
             // --- New: Burger Menu and Sidebar Toggle ---
             const burgerBtn = document.getElementById('burger-menu-btn');
             const sidebarNav = document.getElementById('sidebar-nav');
+            // FIX 2: Get the new backdrop element
+            const menuBackdrop = document.getElementById('menu-backdrop'); 
             
             function toggleSidebar() {
-                sidebarNav.classList.toggle('hidden'); // For Tailwind utility class
-                sidebarNav.classList.toggle('is-open'); // For custom CSS transition
+                sidebarNav.classList.toggle('is-open'); 
+                
+                // FIX 2: Toggle the backdrop and body scroll
+                if (sidebarNav.classList.contains('is-open')) {
+                    menuBackdrop.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden'; 
+                } else {
+                    menuBackdrop.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
             }
 
             burgerBtn.addEventListener('click', toggleSidebar);
+            // FIX 2: Close sidebar when the backdrop is clicked
+            menuBackdrop.addEventListener('click', toggleSidebar); 
 
             // Close sidebar when a nav link is clicked (on mobile)
             document.querySelectorAll('.sidebar a.nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (window.innerWidth <= 768) {
-                        toggleSidebar();
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768 && sidebarNav.classList.contains('is-open')) {
+                         // Check if it's an internal hash link before preventing default
+                        if (this.hash && this.hash.startsWith('#')) {
+                            toggleSidebar();
+                        }
                     }
                 });
             });
